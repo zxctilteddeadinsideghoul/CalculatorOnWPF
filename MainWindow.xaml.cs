@@ -26,7 +26,15 @@ namespace CalculatorOnWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            lblOutput.Content = new RPNcalculator(tbInput.Text).Calculate();
+            double xVariable;
+            if (tbInputX.Text == "")
+            {
+                lblOutput.Content = "Результат: " + new RPNcalculator(tbInputExpression.Text).Calculate().ToString();
+            }
+            else if (double.TryParse(tbInputX.Text, out xVariable))
+            {
+                lblOutput.Content = "Результат: " + new RPNcalculator(tbInputExpression.Text, xVariable).Calculate().ToString();
+            }
         }
     }
 }
