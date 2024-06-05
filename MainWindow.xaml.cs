@@ -21,7 +21,12 @@ namespace CalculatorOnWPF
         public MainWindow()
         {
             InitializeComponent();
-            Debug.WriteLine(1);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            List<Token> tokens = Tokenizer.Tokenize(tbInput.Text);
+            lblOutput.Content = RPNcalculator.CalculateRPNExpression(RPNcalculator.ConvertToRPN(tokens));
         }
     }
 }

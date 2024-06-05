@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Label x:Name="Lable1" Content="Label" HorizontalAlignment="Left" Margin="199,0,0,0" VerticalAlignment="Center" Height="97" Width="221"/>
+        <Label x:Name="lblOutput" Content="Результат: &#xD;&#xA;" HorizontalAlignment="Left" Margin="96,117,0,0" VerticalAlignment="Top" Height="30" Width="221"/>
+        <TextBox x:Name="tbInput" HorizontalAlignment="Left" Margin="96,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnCalculate" Content="Вычислить" HorizontalAlignment="Left" Margin="96,184,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.795,3.935" Height="33" Click="Button_Click"/>
 
     </Grid>
 </Window>
