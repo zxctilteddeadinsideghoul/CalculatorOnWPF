@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RPN.Logic;
 
 
 namespace CalculatorOnWPF
@@ -25,8 +26,7 @@ namespace CalculatorOnWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<Token> tokens = Tokenizer.Tokenize(tbInput.Text);
-            lblOutput.Content = RPNcalculator.CalculateRPNExpression(RPNcalculator.ConvertToRPN(tokens));
+            lblOutput.Content = new RPNcalculator(tbInput.Text).Calculate();
         }
     }
 }
