@@ -33,7 +33,7 @@ namespace CalculatorOnWPF
             }
             else if (double.TryParse(tbInputX.Text, out xVariable))
             {
-                lblOutput.Content = "Результат: " + new RPNcalculator(tbInputExpression.Text, xVariable).Calculate().ToString();
+                lblOutput.Content = "Результат: " + new RPNcalculator(tbInputExpression.Text).Calculate(xVariable).ToString();
             }
         }
     }
