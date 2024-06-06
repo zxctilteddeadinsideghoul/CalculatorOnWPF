@@ -26,15 +26,45 @@ namespace CalculatorOnWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            double xVariable;
-            if (tbInputX.Text == "")
+            
+            UpdateCanvas();
+        }
+
+        private void coordinates_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point uiPoint = Mouse.GetPosition(canvasOutput);
+            lblUiCoordinates.Content = $"{uiPoint.X:.0}; {uiPoint.Y:.0}";
+            double zoom = double.Parse(tbInputScale.Text);
+            Point mathPoint = Mouse.GetPosition(canvasOutput).ToMathCoordinates(canvasOutput, zoom);
+            lblMathCoordinates.Content = $"{mathPoint.X:.0}; {mathPoint.Y:.0}";
+        }
+
+        private void UpdateCanvas()
+        {
+            canvasOutput.Children.Clear();
+            double start = double.Parse(tbInputStart.Text);
+            double end = double.Parse(tbInputEnd.Text);
+            double step = double.Parse(tbInputStep.Text);
+            double zoom = double.Parse(tbInputScale.Text);
+
+            CanvasDrawer canvasDrawer = new CanvasDrawer(
+                canvasOutput,
+                start,
+                end,
+                step,
+                zoom
+                );
+            canvasDrawer.DrawAxis();
+            //canvasDrawer.DrawLine(new Point(230, 230), new Point(400, 400));
+
+            RPNcalculator calculator = new RPNcalculator(tbInputExpression.Text);
+            List<Point> points = new List<Point>();
+            for (double x = start; x <= end; x += step)
             {
-                lblOutput.Content = "Результат: " + new RPNcalculator(tbInputExpression.Text).Calculate().ToString();
+                double y = calculator.Calculate(x);
+                points.Add(new Point(x, y));
             }
-            else if (double.TryParse(tbInputX.Text, out xVariable))
-            {
-                lblOutput.Content = "Результат: " + new RPNcalculator(tbInputExpression.Text, xVariable).Calculate().ToString();
-            }
+            canvasDrawer.PlotGraph(points);
         }
     }
 }
