@@ -72,7 +72,7 @@ namespace CalculatorOnWPF
             DrawScale();
         }
 
-        public static void DrawPoint(Canvas canvas, Point point, Brush brush)
+        public void DrawPoint(Point point, Brush brush)
         {
             Ellipse ellipse = new Ellipse();
             ellipse.Width = 5;
@@ -81,7 +81,7 @@ namespace CalculatorOnWPF
             
             Canvas.SetLeft(ellipse, point.X - ellipse.Width / 2);
             Canvas.SetTop(ellipse, point.Y - ellipse.Height / 2);
-            canvas.Children.Add(ellipse);
+            _canvas.Children.Add(ellipse);
         }
 
         private void DrawScale()
@@ -96,8 +96,6 @@ namespace CalculatorOnWPF
 
                 DrawLine(point1, point2, _brush);
             }
-
-
         }
 
         public void PlotGraph(List<Point> points)
@@ -105,7 +103,7 @@ namespace CalculatorOnWPF
             
             for (int i = 1; i < points.Count; i++)
             {
-                DrawPoint(_canvas, points[i].ToUiCoordinates(_canvas, _zoom), Brushes.Red);
+                DrawPoint(points[i].ToUiCoordinates(_canvas, _zoom), Brushes.Red);
                 DrawLine(points[i - 1].ToUiCoordinates(_canvas, _zoom), points[i].ToUiCoordinates(_canvas, _zoom), Brushes.Red);
             }
         }
